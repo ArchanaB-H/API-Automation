@@ -169,7 +169,7 @@ test.describe('Community Chart Of Accounts API', () => {
     const res = await service.exportItems(chartId)
     expect(res.status()).toBe(200)
     recordPass(MODULE)
-  })
+  }) 
 
   // =============================
   // DELETE (LAST)
