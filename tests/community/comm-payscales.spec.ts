@@ -117,7 +117,7 @@ test('get archived payscales', async () => {
   // UPLOAD LOGO
   // =============================
   test('upload payscale logo', async () => {
-    const logoPath = path.resolve('test-data/payscale-logo.jpg')
+    const logoPath = path.resolve('test-data/logo.jpg')
 
     const res = await service.uploadLogo(payscaleId, logoPath)
     expect(res.status()).toBe(200)

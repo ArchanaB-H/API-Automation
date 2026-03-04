@@ -4,7 +4,7 @@ export class CommTermTimeService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ MAIN
+  //  MAIN
   // =============================
 
   async create(body: any) {
@@ -40,7 +40,7 @@ export class CommTermTimeService {
   }
 
   // =============================
-  // ⭐ DETAILS
+  //  DETAILS
   // =============================
 
   async getDetails(id: string) {
@@ -52,7 +52,7 @@ export class CommTermTimeService {
   }
 
   // =============================
-  // ⭐ LOGO
+  //  LOGO
   // =============================
 
   async uploadLogo(id: string, filePath: string) {
@@ -68,7 +68,7 @@ export class CommTermTimeService {
   }
 
   // =============================
-  // ⭐ TEMPLATE
+  //  TEMPLATE
   // =============================
 
   async getTemplate() {

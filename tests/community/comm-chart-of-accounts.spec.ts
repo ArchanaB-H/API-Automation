@@ -107,7 +107,7 @@ test.describe('Community Chart Of Accounts API', () => {
   // LOGO UPLOAD
   // =============================
   test('upload logo', async () => {
-    const filePath = path.resolve('test-data/payscale-logo.jpg')
+    const filePath = path.resolve('test-data/logo.jpg')
     const res = await service.uploadLogo(chartId, filePath)
     expect(res.status()).toBe(200)
     recordPass(MODULE)
@@ -132,7 +132,7 @@ test.describe('Community Chart Of Accounts API', () => {
   })
 
   // =============================
-  // ⭐ ITEMS
+  //  ITEMS
   // =============================
 
   test('get items', async () => {

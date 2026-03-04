@@ -4,7 +4,7 @@ export class PublicHolidaysService {
   constructor(private api: ApiClient) {}
 
   // =====================================================
-  // ⭐ CREATE
+  //  CREATE
   // =====================================================
   async createHoliday(body: any) {
     return this.api.post('/system/publicholidays', body)
@@ -15,7 +15,7 @@ export class PublicHolidaysService {
   }
 
   // =====================================================
-  // ⭐ GET
+  //  GET
   // =====================================================
   async getHolidays(region: string) {
     return this.api.get(
@@ -34,7 +34,7 @@ export class PublicHolidaysService {
   }
 
   // =====================================================
-  // ⭐ UPDATE
+  //  UPDATE
   // =====================================================
   async updateHoliday(id: string, body: any) {
     return this.api.put(
@@ -44,7 +44,7 @@ export class PublicHolidaysService {
   }
 
   // =====================================================
-  // ⭐ DELETE
+  //  DELETE
   // =====================================================
   async deleteHoliday(id: string) {
     return this.api.delete(

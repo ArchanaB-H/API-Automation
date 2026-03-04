@@ -4,7 +4,7 @@ export class QualificationService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ MAIN CRUD
+  //  MAIN CRUD
   // =============================
 
   async getAll(employerId: string) {
@@ -40,7 +40,7 @@ export class QualificationService {
   }
 
   // =============================
-  // ⭐ TEMPLATE
+  //  TEMPLATE
   // =============================
 
   async getTemplate(employerId: string) {

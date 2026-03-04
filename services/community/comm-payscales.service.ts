@@ -4,7 +4,7 @@ export class CommPayscalesService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ PAY SCALES
+  //  PAY SCALES
   // =============================
 
   async create(body: any) {
@@ -27,23 +27,20 @@ export class CommPayscalesService {
     return this.api.delete(`/community/payscales/${id}`)
   } 
 
-  // ✅ NEW — archive (hide)
   async archive(id: string) {
     return this.api.patch(`/community/payscales/${id}/archive`)
   }
 
-  // ✅ NEW — unarchive (unhide)
   async unarchive(id: string) {
     return this.api.patch(`/community/payscales/${id}/unarchive`)
   }
 
-  // ✅ NEW — get archived list
   async getArchived() {
     return this.api.get('/community/payscales/archived')
   }
 
   // =============================
-  // ⭐ LOGO
+  //  LOGO
   // =============================
 
   async uploadLogo(id: string, filePath: string) {
@@ -54,13 +51,12 @@ export class CommPayscalesService {
     )
   }
 
-  // ✅ NEW — get logo URL
   async getLogo(id: string) {
     return this.api.get(`/community/payscales/${id}/logo`)
   }
 
   // =============================
-  // ⭐ TEMPLATE & EXPORT
+  //  TEMPLATE & EXPORT
   // =============================
 
   async getTemplate() {
@@ -72,7 +68,7 @@ export class CommPayscalesService {
   }
 
   // =============================
-  // ⭐ PAY SCALE POINTS
+  //  PAY SCALE POINTS
   // =============================
 
   async getPoints(payscaleId: string) {

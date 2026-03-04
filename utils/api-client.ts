@@ -57,7 +57,7 @@ export class ApiClient {
   })
 }
     // =============================
-  // ⭐ MULTIPART (for logo upload)
+  //  MULTIPART (for logo upload)
   // =============================
 
 async postFormData(

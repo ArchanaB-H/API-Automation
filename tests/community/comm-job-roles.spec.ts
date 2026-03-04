@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/api-fixture'
 import { CommJobRolesService } from '../../services/community/comm-job-roles.service'
 import {recordPass,recordFail,printModuleSummary} from '../../utils/module-tracker'
 
-// ⭐ IMPORTANT
+
 const MODULE = 'Comm Job Roles'
 
 test.describe.serial('Comm Job Roles API', () => {
@@ -22,7 +22,7 @@ test.describe.serial('Comm Job Roles API', () => {
   })
 
   // =====================================
-  // 1️⃣ CREATE
+  //  CREATE
   // =====================================
   test('create job role', async ({ api }) => {
     const service = new CommJobRolesService(api)
@@ -46,7 +46,7 @@ test.describe.serial('Comm Job Roles API', () => {
   })
 
   // =====================================
-  // 2️⃣ GET ALL
+  //  GET ALL
   // =====================================
   test('get job roles', async ({ api }) => {
     const service = new CommJobRolesService(api)
@@ -58,7 +58,7 @@ test.describe.serial('Comm Job Roles API', () => {
   })
 
   // =====================================
-  // 3️⃣ GET BY ID
+  //  GET BY ID
   // =====================================
   test('get job role by id', async ({ api }) => {
     const service = new CommJobRolesService(api)
@@ -70,7 +70,7 @@ test.describe.serial('Comm Job Roles API', () => {
   })
 
   // =====================================
-  // 4️⃣ PUT
+  //  PUT
   // =====================================
   test('update job role', async ({ api }) => {
     const service = new CommJobRolesService(api)
@@ -88,7 +88,7 @@ test.describe.serial('Comm Job Roles API', () => {
   })
 
   // =====================================
-  // 5️⃣ TEMPLATE
+  //  TEMPLATE
   // =====================================
   test('get job role template', async ({ api }) => {
     const service = new CommJobRolesService(api)
@@ -100,7 +100,7 @@ test.describe.serial('Comm Job Roles API', () => {
   })
 
   // =====================================
-  // 6️⃣ DELETE
+  //  DELETE
   // =====================================
   test('delete job role', async ({ api }) => {
     const service = new CommJobRolesService(api)

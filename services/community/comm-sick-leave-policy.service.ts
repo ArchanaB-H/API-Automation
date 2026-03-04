@@ -4,7 +4,7 @@ export class CommSickLeavePolicyService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ MAIN CRUD
+  //  MAIN CRUD
   // =============================
 
   async create(body: any) {
@@ -40,7 +40,7 @@ export class CommSickLeavePolicyService {
   }
 
   // =============================
-  // ⭐ LOGO
+  //  LOGO
   // =============================
 
   async uploadLogo(id: string, filePath: string) {
@@ -56,7 +56,7 @@ export class CommSickLeavePolicyService {
   }
 
   // =============================
-  // ⭐ TEMPLATE
+  //  TEMPLATE
   // =============================
 
   async getTemplate() {

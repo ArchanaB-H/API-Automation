@@ -3,32 +3,32 @@ import { ApiClient } from '../../utils/api-client'
 export class CommJobRolesService {
   constructor(private api: ApiClient) {}
 
-  // ✅ POST
+  // POST
   async createJobRole(payload: any[]) {
     return this.api.post('/community/job-roles', payload)
   }
 
-  // ✅ GET ALL
+  // GET ALL
   async getAllJobRoles() {
     return this.api.get('/community/job-roles')
   }
 
-  // ✅ GET BY ID
+  // GET BY ID
   async getJobRoleById(jobRoleId: string) {
     return this.api.get(`/community/job-roles/${jobRoleId}`)
   }
 
-  // ✅ PUT
+  // PUT
   async updateJobRole(jobRoleId: string, payload: any) {
     return this.api.put(`/community/job-roles/${jobRoleId}`, payload)
   }
 
-  // ✅ DELETE
+  // DELETE
   async deleteJobRole(jobRoleId: string) {
     return this.api.delete(`/community/job-roles/${jobRoleId}`)
   }
 
-  // ✅ TEMPLATE
+  // TEMPLATE
   async getTemplate() {
     return this.api.get('/community/job-roles/template')
   }

@@ -20,7 +20,7 @@ test.describe('Community Grades API', () => {
   })
 
   // =============================
-  // ⭐ GRADE SETS
+  //  GRADE SETS
   // =============================
 
   test('create grade set', async () => {
@@ -125,7 +125,7 @@ test.describe('Community Grades API', () => {
   })
 
   // =============================
-  // ⭐ GRADES CRUD
+  //  GRADES CRUD
   // =============================
 
   test('get grades', async () => {
@@ -175,7 +175,7 @@ test.describe('Community Grades API', () => {
   })
 
   // =============================
-  // ⭐ DELETE LAST
+  //  DELETE LAST
   // =============================
 
   test('delete grade set', async () => {

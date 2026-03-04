@@ -4,7 +4,7 @@ export class CommFamilyLeavePolicyService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ MAIN CRUD
+  //  MAIN CRUD
   // =============================
 
   async create(body: any) {
@@ -28,7 +28,7 @@ export class CommFamilyLeavePolicyService {
   }
 
   // =============================
-  // ⭐ EXTRA ENDPOINTS
+  //  EXTRA ENDPOINTS
   // =============================
 
   async getByType(typeId: number) {
@@ -48,7 +48,7 @@ export class CommFamilyLeavePolicyService {
   }
 
   // =============================
-  // ⭐ LOGO
+  //  LOGO
   // =============================
 
   async uploadLogo(id: string, filePath: string) {
@@ -64,7 +64,7 @@ export class CommFamilyLeavePolicyService {
   }
 
   // =============================
-  // ⭐ TEMPLATE
+  //  TEMPLATE
   // =============================
 
   async getTemplate() {

@@ -4,7 +4,7 @@ export class CommTermDatesService {
   constructor(private api: ApiClient) {}
 
   // =====================================================
-  // ⭐ TERM DATE SETS
+  //  TERM DATE SETS
   // =====================================================
 
   async createSet(body: any) {
@@ -56,7 +56,7 @@ export class CommTermDatesService {
   }
 
   // =====================================================
-  // ⭐ TERM DATES (child)
+  //  TERM DATES (child)
   // =====================================================
 
   async getTermDates(setId: string) {

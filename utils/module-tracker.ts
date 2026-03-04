@@ -34,7 +34,7 @@ function writeStats(data: Record<string, ModuleStats>) {
   fs.writeFileSync(RESULTS_FILE, JSON.stringify(data, null, 2))
 }
 
-// ✅ record pass
+//  record pass
 export function recordPass(moduleName: string) {
   const stats = readStats()
 
@@ -46,7 +46,7 @@ export function recordPass(moduleName: string) {
   writeStats(stats)
 }
 
-// ✅ record fail
+//  record fail
 export function recordFail(moduleName: string) {
   const stats = readStats()
 
@@ -58,7 +58,7 @@ export function recordFail(moduleName: string) {
   writeStats(stats)
 }
 
-// ✅ per-module summary
+//  per-module summary
 export function printModuleSummary(moduleName: string) {
   const stats = readStats()[moduleName] || {
     passed: 0,

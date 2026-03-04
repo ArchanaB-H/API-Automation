@@ -115,7 +115,7 @@ test('get term date set by id', async () => {
   // LOGO
   // =====================================================
   test('upload set logo', async () => {
-    const filePath = path.resolve('test-data/payscale-logo.jpg')
+    const filePath = path.resolve('test-data/logo.jpg')
     const res = await service.uploadSetLogo(setId, filePath)
     expect(res.status()).toBe(200)
     recordPass(MODULE)

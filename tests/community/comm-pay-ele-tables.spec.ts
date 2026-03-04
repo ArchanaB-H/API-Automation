@@ -112,7 +112,7 @@ test.describe('Community Pay Element Table API', () => {
   // LOGO UPLOAD
   // =============================
   test('upload table logo', async () => {
-    const logoPath = path.resolve('test-data/payscale-logo.jpg')
+    const logoPath = path.resolve('test-data/logo.jpg')
 
     const res = await service.uploadLogo(tableId, logoPath)
     expect(res.status()).toBe(200)

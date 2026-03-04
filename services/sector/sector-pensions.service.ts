@@ -4,7 +4,7 @@ export class PensionService {
   constructor(private api: ApiClient) {}
 
   // =====================================================
-  // ⭐ RATE TABLES
+  //  RATE TABLES
   // =====================================================
 
   async getRateTables() {
@@ -54,7 +54,7 @@ export class PensionService {
   }
 
   // =====================================================
-  // ⭐ PENSION FUNDS
+  //  PENSION FUNDS
   // =====================================================
 
   async getFunds() {
@@ -82,7 +82,7 @@ export class PensionService {
   }
 
   // =====================================================
-  // ⭐ ADDITIONAL CONTRIBUTIONS
+  //  ADDITIONAL CONTRIBUTIONS
   // =====================================================
 
   async getAdditionalContributions() {

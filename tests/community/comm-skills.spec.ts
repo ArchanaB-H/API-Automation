@@ -2,20 +2,19 @@ import { test, expect } from '../../fixtures/api-fixture'
 import { CommSkillsService } from '../../services/community/comm-skills.service'
 import {recordPass,recordFail,printModuleSummary} from '../../utils/module-tracker'
 
-// ⭐ module name (IMPORTANT)
+
 const MODULE = 'Comm Skills'
 
 test.describe.serial('Comm Skills API', () => {
   let createdSkillId: string
   let skillName: string
 
-  // ⭐ helper — DO NOT MODIFY
+
   function markPassed(name: string) {
     recordPass(MODULE)
     console.log(`✅ ${name} — passed`)
   }
 
-  // ⭐ auto failure tracking
   test.afterEach(async ({}, testInfo) => {
     if (testInfo.status !== testInfo.expectedStatus) {
       recordFail(MODULE)
@@ -24,7 +23,7 @@ test.describe.serial('Comm Skills API', () => {
   })
 
   // =====================================
-  // 1️⃣ CREATE
+  //  CREATE
   // =====================================
   test('create skill', async ({ api }) => {
     const service = new CommSkillsService(api)
@@ -48,7 +47,7 @@ test.describe.serial('Comm Skills API', () => {
   })
 
   // =====================================
-  // 2️⃣ GET ALL
+  //  GET ALL
   // =====================================
   test('get skills', async ({ api }) => {
     const service = new CommSkillsService(api)
@@ -60,7 +59,7 @@ test.describe.serial('Comm Skills API', () => {
   })
 
   // =====================================
-  // 3️⃣ GET BY ID
+  //  GET BY ID
   // =====================================
   test('get by id', async ({ api }) => {
     const service = new CommSkillsService(api)
@@ -72,7 +71,7 @@ test.describe.serial('Comm Skills API', () => {
   })
 
   // =====================================
-  // 4️⃣ PUT
+  //  PUT
   // =====================================
   test('update skill', async ({ api }) => {
     const service = new CommSkillsService(api)
@@ -90,7 +89,7 @@ test.describe.serial('Comm Skills API', () => {
   })
 
   // =====================================
-  // 5️⃣ TEMPLATE
+  //  TEMPLATE
   // =====================================
   test('get template', async ({ api }) => {
     const service = new CommSkillsService(api)
@@ -102,7 +101,7 @@ test.describe.serial('Comm Skills API', () => {
   })
 
   // =====================================
-  // 6️⃣ DELETE
+  //  DELETE
   // =====================================
   test('delete skill', async ({ api }) => {
     const service = new CommSkillsService(api)

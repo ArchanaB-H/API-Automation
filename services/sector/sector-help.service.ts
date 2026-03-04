@@ -4,7 +4,7 @@ export class ScreensService {
   constructor(private api: ApiClient) {}
 
   // =====================================================
-  // ⭐ GET ALL SCREENS
+  //  GET ALL SCREENS
   // =====================================================
   async getScreens(sectorId?: string) {
     const query = sectorId ? `?sectorId=${sectorId}` : ''
@@ -12,14 +12,14 @@ export class ScreensService {
   }
 
   // =====================================================
-  // ⭐ GET SCREEN BY ID
+  //  GET SCREEN BY ID
   // =====================================================
   async getScreenById(screenId: string) {
     return this.api.get(`/Screens/${screenId}`)
   }
 
   // =====================================================
-  // ⭐ GET HELP TEXT
+  //  GET HELP TEXT
   // =====================================================
   async getScreenHelp(screenNo: number) {
     return this.api.get(`/Screens/HelpText?screenNo=${screenNo}`)

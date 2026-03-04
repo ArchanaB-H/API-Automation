@@ -4,7 +4,7 @@ export class CommPayElementTableService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ TABLE
+  //  TABLE
   // =============================
 
   async create(body: any) {
@@ -36,7 +36,7 @@ export class CommPayElementTableService {
   }
 
   // =============================
-  // ⭐ ITEMS
+  //  ITEMS
   // =============================
 
   async getItems(id: string) {
@@ -46,7 +46,7 @@ export class CommPayElementTableService {
   
 
   // =============================
-  // ⭐ LOGO
+  //  LOGO
   // =============================
 
   async uploadLogo(id: string, filePath: string) {
@@ -62,7 +62,7 @@ export class CommPayElementTableService {
   }
 
   // =============================
-  // ⭐ TEMPLATE
+  //  TEMPLATE
   // =============================
 
   async getTemplate(typeId: number) {

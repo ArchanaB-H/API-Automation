@@ -4,7 +4,7 @@ export class CommChartOfAccountsService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ CHART OF ACCOUNTS
+  //  CHART OF ACCOUNTS
   // =============================
 
   async create(body: any) {
@@ -38,7 +38,7 @@ export class CommChartOfAccountsService {
   }
 
   // =============================
-  // ⭐ LOGO
+  //  LOGO
   // =============================
 
   async uploadLogo(id: string, filePath: string) {
@@ -54,7 +54,7 @@ export class CommChartOfAccountsService {
   }
 
   // =============================
-  // ⭐ TEMPLATE
+  //  TEMPLATE
   // =============================
 
   async getTemplate() {
@@ -62,7 +62,7 @@ export class CommChartOfAccountsService {
   }
 
   // =============================
-  // ⭐ ITEMS
+  //  ITEMS
   // =============================
 
   async getItems(caId: string) {

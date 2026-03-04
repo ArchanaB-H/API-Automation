@@ -125,7 +125,7 @@ test.describe('Community Family Leave Policy API', () => {
   // LOGO UPLOAD
   // =============================
   test('upload family leave policy logo', async () => {
-    const logoPath = path.resolve('test-data/payscale-logo.jpg')
+    const logoPath = path.resolve('test-data/logo.jpg')
     const res = await service.uploadLogo(flpId, logoPath)
     expect(res.status()).toBe(200)
     recordPass(MODULE)

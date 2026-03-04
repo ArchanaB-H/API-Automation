@@ -4,7 +4,7 @@ export class CommPayBandService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ PAY BAND
+  //  PAY BAND
   // =============================
 
   async create(body: any) {
@@ -44,7 +44,7 @@ export class CommPayBandService {
   }
 
   // =============================
-  // ⭐ LOGO
+  //  LOGO
   // =============================
 
   async uploadLogo(id: string, filePath: string) {

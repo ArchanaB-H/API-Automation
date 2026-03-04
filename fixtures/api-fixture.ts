@@ -2,7 +2,6 @@ import { test as base, request as playwrightRequest } from '@playwright/test'
 import { getToken } from '../utils/auth'
 import { ApiClient } from '../utils/api-client'
 
-// 👇 IMPORTANT — split worker fixtures
 type WorkerFixtures = {
   api: ApiClient
 }

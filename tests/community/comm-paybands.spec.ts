@@ -24,7 +24,7 @@ test.describe('Community PayBand API', () => {
     const res = await service.create([
       {
         pbNo: 0,
-        pbname: `PB_API_${Date.now()}`,
+        pbname: `PB_API`,
         pbdesc: 'Created by Playwright',
         pblogo: true,
         logo: true,
@@ -84,7 +84,7 @@ test.describe('Community PayBand API', () => {
     const res = await service.update(payBandId, {
       pbNo: 0,
       pbid: payBandId,
-      pbname: `PB_UPDATED_${Date.now()}`,
+      pbname: `PB_UPDATED_API`,
       pbdesc: 'Updated by Playwright',
       pblogo: true,
       logo: true,
@@ -123,7 +123,7 @@ test.describe('Community PayBand API', () => {
   // LOGO UPLOAD (API BUG SAFE)
   // =============================
   test('upload pay band logo', async () => {
-    const logoPath = path.resolve('test-data/payscale-logo.jpg')
+    const logoPath = path.resolve('test-data/logo.jpg')
 
     const res = await service.uploadLogo(payBandId, logoPath)
     expect(res.status()).toBe(200)

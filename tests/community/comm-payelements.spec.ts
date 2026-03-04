@@ -21,7 +21,7 @@ test.describe.serial('Comm Pay Element API', () => {
   })
 
   // =====================================
-  // 1️⃣ CREATE
+  //  CREATE
   // =====================================
   test('create pay element', async ({ api }) => {
     const service = new CommPayElementService(api)
@@ -54,7 +54,7 @@ test.describe.serial('Comm Pay Element API', () => {
   })
 
   // =====================================
-  // 2️⃣ GET ALL
+  //  GET ALL
   // =====================================
   test('get pay elements', async ({ api }) => {
     const service = new CommPayElementService(api)
@@ -66,7 +66,7 @@ test.describe.serial('Comm Pay Element API', () => {
   })
 
   // =====================================
-  // 3️⃣ GET BY ID
+  //  GET BY ID
   // =====================================
   test('get pay element by id', async ({ api }) => {
     const service = new CommPayElementService(api)
@@ -78,7 +78,7 @@ test.describe.serial('Comm Pay Element API', () => {
   })
 
   // =====================================
-  // 4️⃣ PUT
+  //  PUT
   // =====================================
   test('update pay element', async ({ api }) => {
     const service = new CommPayElementService(api)
@@ -105,7 +105,7 @@ test.describe.serial('Comm Pay Element API', () => {
   })
 
   // =====================================
-  // 5️⃣ TEMPLATE
+  //  TEMPLATE
   // =====================================
   test('get pay element template', async ({ api }) => {
     const service = new CommPayElementService(api)
@@ -117,7 +117,7 @@ test.describe.serial('Comm Pay Element API', () => {
   })
 
   // =====================================
-  // 6️⃣ DELETE
+  //  DELETE
   // =====================================
   test('delete pay element', async ({ api }) => {
     const service = new CommPayElementService(api)

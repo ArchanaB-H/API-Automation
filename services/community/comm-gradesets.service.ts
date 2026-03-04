@@ -4,7 +4,7 @@ export class CommGradesService {
   constructor(private api: ApiClient) {}
 
   // =============================
-  // ⭐ GRADE SETS
+  //  GRADE SETS
   // =============================
 
   async createGradeSet(body: any) {
@@ -40,7 +40,7 @@ export class CommGradesService {
   }
 
   // =============================
-  // ⭐ LOGO
+  //  LOGO
   // =============================
 
   async uploadLogo(id: string, filePath: string) {
@@ -56,7 +56,7 @@ export class CommGradesService {
   }
 
   // =============================
-  // ⭐ TEMPLATE & EXPORT
+  //  TEMPLATE & EXPORT
   // =============================
 
   async getTemplate() {
@@ -68,7 +68,7 @@ export class CommGradesService {
   }
 
   // =============================
-  // ⭐ GRADES (DETAILS)
+  //  GRADES (DETAILS)
   // =============================
 
   async getGrades(gradeSetId: string) {

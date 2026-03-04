@@ -33,7 +33,7 @@ export async function getToken(): Promise<string> {
     throw new Error('Access token not found in login response')
   }
 
-  // ✅ decode JWT expiry (no library needed)
+  //  decode JWT expiry (no library needed)
   const payload = JSON.parse(
     Buffer.from(token.split('.')[1], 'base64').toString()
   )

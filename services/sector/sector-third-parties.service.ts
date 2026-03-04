@@ -4,7 +4,7 @@ export class ThirdPartiesService {
   constructor(private api: ApiClient) {}
 
   // =====================================================
-  // ⭐ CREATE
+  //  CREATE
   // =====================================================
   async createThirdParty(employerId: string, body: any[]) {
     return this.api.post(
@@ -14,7 +14,7 @@ export class ThirdPartiesService {
   }
 
   // =====================================================
-  // ⭐ GET
+  //  GET
   // =====================================================
   async getThirdParties(employerId: string) {
     return this.api.get(
@@ -32,7 +32,7 @@ export class ThirdPartiesService {
   }
 
   // =====================================================
-  // ⭐ UPDATE
+  //  UPDATE
   // =====================================================
   async updateThirdParty(
     employerId: string,
@@ -66,7 +66,7 @@ export class ThirdPartiesService {
   }
 
   // =====================================================
-  // ⭐ DELETE
+  //  DELETE
   // =====================================================
   async deleteThirdParty(
     employerId: string,

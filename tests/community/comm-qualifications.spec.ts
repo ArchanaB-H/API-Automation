@@ -21,7 +21,7 @@ test.describe.serial('Comm Qualification API', () => {
   })
 
   // =====================================
-  // 1️⃣ CREATE
+  //  CREATE
   // =====================================
   test('create qualification', async ({ api }) => {
     const service = new CommQualificationService(api)
@@ -45,7 +45,7 @@ test.describe.serial('Comm Qualification API', () => {
   })
 
   // =====================================
-  // 2️⃣ GET ALL
+  //  GET ALL
   // =====================================
   test('get qualifications', async ({ api }) => {
     const service = new CommQualificationService(api)
@@ -57,7 +57,7 @@ test.describe.serial('Comm Qualification API', () => {
   })
 
   // =====================================
-  // 3️⃣ GET BY ID
+  //  GET BY ID
   // =====================================
   test('get qualification by id', async ({ api }) => {
     const service = new CommQualificationService(api)
@@ -69,7 +69,7 @@ test.describe.serial('Comm Qualification API', () => {
   })
 
   // =====================================
-  // 4️⃣ PUT
+  //  PUT
   // =====================================
   test('update qualification', async ({ api }) => {
     const service = new CommQualificationService(api)
@@ -87,7 +87,7 @@ test.describe.serial('Comm Qualification API', () => {
   })
 
   // =====================================
-  // 5️⃣ TEMPLATE
+  //  TEMPLATE
   // =====================================
   test('get qualification template', async ({ api }) => {
     const service = new CommQualificationService(api)
@@ -99,7 +99,7 @@ test.describe.serial('Comm Qualification API', () => {
   })
 
   // =====================================
-  // 6️⃣ DELETE
+  //  DELETE
   // =====================================
   test('delete qualification', async ({ api }) => {
     const service = new CommQualificationService(api)

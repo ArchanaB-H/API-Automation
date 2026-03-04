@@ -118,7 +118,7 @@ test.describe('Community Sick Leave Policy API', () => {
   // LOGO UPLOAD
   // =============================
   test('upload sick leave policy logo', async () => {
-    const logoPath = path.resolve('test-data/payscale-logo.jpg')
+    const logoPath = path.resolve('test-data/logo.jpg')
     const res = await service.uploadLogo(slpId, logoPath)
     expect(res.status()).toBe(200)
     recordPass(MODULE)

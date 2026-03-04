@@ -124,7 +124,7 @@ test.describe('Community Term Time API', () => {
   // LOGO UPLOAD
   // =============================
   test('upload term time logo', async () => {
-    const logoPath = path.resolve('test-data/payscale-logo.jpg')
+    const logoPath = path.resolve('test-data/logo.jpg')
     const res = await service.uploadLogo(termTimeId, logoPath)
     expect(res.status()).toBe(200)
     recordPass(MODULE)
