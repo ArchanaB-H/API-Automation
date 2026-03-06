@@ -20,7 +20,7 @@ test.describe('Sector - Events Categories', () => {
   })
 
   // =====================================================
-  // ⭐ GET ALL CATEGORIES
+  //  GET ALL CATEGORIES
   // =====================================================
   test('get event categories', async () => {
     const res = await service.getCategories()
@@ -35,7 +35,7 @@ test.describe('Sector - Events Categories', () => {
   })
 
   // =====================================================
-  // ⭐ GET EVENTS BY CATEGORY
+  //  GET EVENTS BY CATEGORY
   // =====================================================
   test('get events by category', async () => {
     const res = await service.getEventsByCategory(CATEGORY_ID)
@@ -50,9 +50,9 @@ test.describe('Sector - Events Categories', () => {
   })
 
   // =====================================================
-  // ⭐ GET EVENT BY ID (YOUR API)
+  //  GET EVENT BY ID (YOUR API)
   // =====================================================
-  test('get event by id', async () => {
+   test('get event by id', async () => {
     const res = await service.getEventById(
       CATEGORY_ID,
       EVENT_ID
@@ -64,10 +64,10 @@ test.describe('Sector - Events Categories', () => {
     expect(body.result.evtId).toBe(EVENT_ID)
 
     recordPass(MODULE)
-  })
+  }) 
 
   // =====================================================
-  // ⭐ TRACKING
+  //  TRACKING
   // =====================================================
   test.afterEach(async ({}, testInfo) => {
     if (testInfo.status !== testInfo.expectedStatus) {

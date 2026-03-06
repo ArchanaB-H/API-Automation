@@ -1,17 +1,16 @@
 import { test, expect } from '../../fixtures/api-fixture'
 import { CommPayElementService } from '../../services/community/comm-payelements.service'
-import {recordPass,recordFail,printModuleSummary} from '../../utils/module-tracker'
+import { recordPass, recordFail, printModuleSummary } from '../../utils/module-tracker'
+import { CleanupHelper } from '../../utils/cleanup-helper'
 
 const MODULE = 'Comm Pay Elements'
+const cleanup = new CleanupHelper()
 
 test.describe.serial('Comm Pay Element API', () => {
+
   let createdId: string
   let peName: string
-
-  function markPassed(name: string) {
-    recordPass(MODULE)
-    console.log(`✅ ${name} — passed`)
-  }
+  let deleted = false
 
   test.afterEach(async ({}, testInfo) => {
     if (testInfo.status !== testInfo.expectedStatus) {
@@ -21,12 +20,13 @@ test.describe.serial('Comm Pay Element API', () => {
   })
 
   // =====================================
-  //  CREATE
+  // CREATE
   // =====================================
   test('create pay element', async ({ api }) => {
+
     const service = new CommPayElementService(api)
 
-    peName = `API_PE`
+    peName = `API_PE_${Date.now()}`
 
     const res = await service.createPayElement([
       {
@@ -50,42 +50,55 @@ test.describe.serial('Comm Pay Element API', () => {
     const body = await res.json()
     createdId = body.result[0]
 
-    markPassed('pay element created')
+    // fallback cleanup
+    cleanup.add(async () => {
+      if (!createdId || deleted) return
+      await service.deletePayElement(createdId)
+    })
+
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  GET ALL
+  // GET ALL
   // =====================================
   test('get pay elements', async ({ api }) => {
+
     const service = new CommPayElementService(api)
 
     const res = await service.getAllPayElements()
+
     expect(res.status()).toBe(200)
 
-    markPassed('get pay elements')
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  GET BY ID
+  // GET BY ID
   // =====================================
   test('get pay element by id', async ({ api }) => {
+
     const service = new CommPayElementService(api)
 
     const res = await service.getPayElementById(createdId)
+
     expect(res.status()).toBe(200)
 
-    markPassed('get pay element by id')
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  PUT
+  // UPDATE
   // =====================================
   test('update pay element', async ({ api }) => {
+
     const service = new CommPayElementService(api)
+
+    const updatedName = `${peName}_UPDATED`
 
     const res = await service.updatePayElement(createdId, {
       peId: createdId,
-      peName: `${peName}_Updated`,
+      peName: updatedName,
       peType: 0,
       peTax: true,
       peNi: true,
@@ -101,37 +114,50 @@ test.describe.serial('Comm Pay Element API', () => {
 
     expect(res.status()).toBe(200)
 
-    markPassed('put update pay element')
+    peName = updatedName
+
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  TEMPLATE
+  // TEMPLATE
   // =====================================
   test('get pay element template', async ({ api }) => {
+
     const service = new CommPayElementService(api)
 
     const res = await service.getTemplate()
+
     expect(res.status()).toBe(200)
 
-    markPassed('template fetch pay element')
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  DELETE
+  // DELETE (Primary)
   // =====================================
   test('delete pay element', async ({ api }) => {
+
     const service = new CommPayElementService(api)
 
     const res = await service.deletePayElement(createdId)
+
     expect(res.status()).toBe(200)
 
-    markPassed('delete pay element')
+    deleted = true
+
+    recordPass(MODULE)
   })
 
   // =====================================
-  // MODULE SUMMARY
+  // MODULE SUMMARY + CLEANUP
   // =====================================
   test.afterAll(async () => {
+    
     printModuleSummary(MODULE)
+    
+    await cleanup.runAll(MODULE)
+    
   })
+
 })

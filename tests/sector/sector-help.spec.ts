@@ -19,7 +19,7 @@ test.describe('Sector - Screens', () => {
   })
 
   // =====================================================
-  // ⭐ GET ALL
+  //  GET ALL
   // =====================================================
   test('get screens by sector', async () => {
     const res = await service.getScreens(SECTOR_ID)
@@ -34,7 +34,7 @@ test.describe('Sector - Screens', () => {
   })
 
   // =====================================================
-  // ⭐ GET BY ID
+  //  GET BY ID
   // =====================================================
   test('get screen by id', async () => {
     const res = await service.getScreenById(SCREEN_ID)
@@ -48,7 +48,7 @@ test.describe('Sector - Screens', () => {
   })
 
   // =====================================================
-  // ⭐ GET HELP TEXT
+  //  GET HELP TEXT
   // =====================================================
   test('get screen help text', async () => {
     const res = await service.getScreenHelp(SCREEN_NO)
@@ -62,7 +62,7 @@ test.describe('Sector - Screens', () => {
   })
 
   // =====================================================
-  // ⭐ TRACKING
+  //  TRACKING
   // =====================================================
   test.afterEach(async ({}, testInfo) => {
     if (testInfo.status !== testInfo.expectedStatus) {

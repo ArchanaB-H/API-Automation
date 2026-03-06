@@ -1,18 +1,20 @@
 import { test, expect } from '../../fixtures/api-fixture'
 import { CommDepartmentsService } from '../../services/community/comm-departments.service'
-import {recordPass,recordFail,printModuleSummary} from '../../utils/module-tracker'
+import { recordPass, recordFail, printModuleSummary } from '../../utils/module-tracker'
+import { CleanupHelper } from '../../utils/cleanup-helper'
 
 const MODULE = 'Comm Departments'
+const cleanup = new CleanupHelper()
 
 test.describe.serial('Comm Departments API', () => {
+
   let createdDeptId: string
   let deptName: string
+  let deleted = false
 
-  function markPassed(name: string) {
-    recordPass(MODULE)
-    console.log(`✅ ${name} — passed`)
-  }
-
+  // =============================
+  // FAILURE TRACKER
+  // =============================
   test.afterEach(async ({}, testInfo) => {
     if (testInfo.status !== testInfo.expectedStatus) {
       recordFail(MODULE)
@@ -20,11 +22,15 @@ test.describe.serial('Comm Departments API', () => {
     }
   })
 
+
+  // =============================
   // CREATE
+  // =============================
   test('create department', async ({ api }) => {
+
     const service = new CommDepartmentsService(api)
 
-    deptName = `API_DEPT`
+    deptName = `API_DEPT_${Date.now()}`
 
     const res = await service.createDepartment([
       { deptName }
@@ -35,64 +41,109 @@ test.describe.serial('Comm Departments API', () => {
     const body = await res.json()
     createdDeptId = body.result[0]
 
-    markPassed('department created')
+    // fallback cleanup
+    cleanup.add(async () => {
+      if (!createdDeptId || deleted) return
+      await service.deleteDepartment(createdDeptId)
+    })
+
+    recordPass(MODULE)
   })
 
+
+  // =============================
   // GET ALL
+  // =============================
   test('get departments', async ({ api }) => {
+
     const service = new CommDepartmentsService(api)
 
     const res = await service.getAllDepartments()
+
     expect(res.status()).toBe(200)
 
-    markPassed('get departments')
+    recordPass(MODULE)
   })
 
+
+  // =============================
   // GET BY ID
+  // =============================
   test('get department by id', async ({ api }) => {
+
     const service = new CommDepartmentsService(api)
 
     const res = await service.getDepartmentById(createdDeptId)
+
     expect(res.status()).toBe(200)
 
-    markPassed('get department by id')
+    recordPass(MODULE)
   })
 
-  // PUT
+
+  // =============================
+  // UPDATE
+  // =============================
   test('update department', async ({ api }) => {
+
     const service = new CommDepartmentsService(api)
+
+    const updatedName = `${deptName}_UPDATED`
 
     const res = await service.updateDepartment({
       deptId: createdDeptId,
-      deptName: `${deptName}_UPDATED`
+      deptName: updatedName
     })
 
     expect(res.status()).toBe(200)
 
-    markPassed('put update department')
+    deptName = updatedName
+
+    recordPass(MODULE)
   })
 
+
+  // =============================
   // TEMPLATE
+  // =============================
   test('get department template', async ({ api }) => {
+
     const service = new CommDepartmentsService(api)
 
     const res = await service.getTemplate()
+
     expect(res.status()).toBe(200)
 
-    markPassed('template fetch department')
+    recordPass(MODULE)
   })
 
-  // DELETE
+
+  // =============================
+  // DELETE (Primary)
+  // =============================
   test('delete department', async ({ api }) => {
+
     const service = new CommDepartmentsService(api)
 
     const res = await service.deleteDepartment(createdDeptId)
+
     expect(res.status()).toBe(200)
 
-    markPassed('delete department')
+    deleted = true
+
+    recordPass(MODULE)
   })
 
+
+  // =============================
+  // CLEANUP (Fallback)
+  // =============================
   test.afterAll(async () => {
+
     printModuleSummary(MODULE)
+
+    await cleanup.runAll(MODULE)
+
   })
+
 })

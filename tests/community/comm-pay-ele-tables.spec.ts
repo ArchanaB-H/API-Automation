@@ -6,12 +6,17 @@ import {
   recordFail,
   printModuleSummary
 } from '../../utils/module-tracker'
+import { CleanupHelper } from '../../utils/cleanup-helper'
 
 const MODULE = 'Comm Pay Element Table'
+const cleanup = new CleanupHelper()
 
-test.describe('Community Pay Element Table API', () => {
+test.describe.serial('Community Pay Element Table API', () => {
+
   let service: CommPayElementTableService
   let tableId: string
+  let tableName: string
+  let deleted = false
 
   test.beforeAll(async ({ api }) => {
     service = new CommPayElementTableService(api)
@@ -21,9 +26,12 @@ test.describe('Community Pay Element Table API', () => {
   // CREATE
   // =============================
   test('create pay element table', async () => {
+
+    tableName = `API_TABLE_${Date.now()}`
+
     const res = await service.create([
       {
-        name: `API_TABLE`,
+        name: tableName,
         description: 'Created by Playwright',
         type: 2,
         logoExtension: '.jpg',
@@ -44,6 +52,12 @@ test.describe('Community Pay Element Table API', () => {
     const body = await res.json()
     tableId = body.result[0]
 
+    // fallback cleanup
+    cleanup.add(async () => {
+      if (!tableId || deleted) return
+      await service.delete(tableId)
+    })
+
     recordPass(MODULE)
   })
 
@@ -51,8 +65,11 @@ test.describe('Community Pay Element Table API', () => {
   // GET ALL
   // =============================
   test('get pay element tables', async () => {
+
     const res = await service.getAll()
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
@@ -60,18 +77,23 @@ test.describe('Community Pay Element Table API', () => {
   // GET ITEMS
   // =============================
   test('get table items', async () => {
+
     const res = await service.getItems(tableId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
-
   // =============================
-  // UPDATE TABLE
+  // UPDATE
   // =============================
   test('update pay element table', async () => {
+
+    const updatedName = `${tableName}_UPDATED`
+
     const res = await service.update(tableId, {
-      name: `API_UPDATED`,
+      name: updatedName,
       description: 'Updated by Playwright',
       type: 2,
       logoExtension: '.jpg',
@@ -87,6 +109,9 @@ test.describe('Community Pay Element Table API', () => {
     })
 
     expect(res.status()).toBe(200)
+
+    tableName = updatedName
+
     recordPass(MODULE)
   })
 
@@ -94,38 +119,43 @@ test.describe('Community Pay Element Table API', () => {
   // ARCHIVE
   // =============================
   test('archive table', async () => {
+
     const res = await service.archive(tableId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
-  // =============================
-  // UNARCHIVE
-  // =============================
   test('unarchive table', async () => {
+
     const res = await service.unarchive(tableId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
   // =============================
-  // LOGO UPLOAD
+  // LOGO
   // =============================
   test('upload table logo', async () => {
+
     const logoPath = path.resolve('test-data/logo.jpg')
 
     const res = await service.uploadLogo(tableId, logoPath)
+
     expect(res.status()).toBe(200)
 
     recordPass(MODULE)
   })
 
-  // =============================
-  // GET LOGO
-  // =============================
   test('get table logo', async () => {
+
     const res = await service.getLogo(tableId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
@@ -133,8 +163,11 @@ test.describe('Community Pay Element Table API', () => {
   // TEMPLATE
   // =============================
   test('get table template', async () => {
+
     const res = await service.getTemplate(2)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
@@ -142,31 +175,49 @@ test.describe('Community Pay Element Table API', () => {
   // EXPORT
   // =============================
   test('export table', async () => {
+
     const res = await service.export(tableId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
   // =============================
-  // DELETE
+  // DELETE (Primary)
   // =============================
   test('delete table', async () => {
+
     const res = await service.delete(tableId)
+
     expect(res.status()).toBe(200)
+
+    deleted = true
+
     recordPass(MODULE)
   })
 
   // =============================
-  // FAILURE TRACKING
+  // FAILURE TRACKER
   // =============================
   test.afterEach(async ({}, testInfo) => {
+
     if (testInfo.status !== testInfo.expectedStatus) {
       recordFail(MODULE)
       console.log(`❌ ${testInfo.title} — failed`)
     }
+
   })
 
+  // =============================
+  // CLEANUP (Fallback)
+  // =============================
   test.afterAll(async () => {
+
     printModuleSummary(MODULE)
+
+    await cleanup.runAll(MODULE)
+    
   })
+
 })

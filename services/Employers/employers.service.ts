@@ -4,19 +4,19 @@ export class EmployersService {
   constructor(private api: ApiClient) {}
 
   // =============================
+  // CREATE
+  // =============================
+  async create(data: any) {
+    return this.api.post('/employers', data)
+  }
+
+  // =============================
   // GET ALL
   // =============================
   async getAll(sectorId?: string) {
     let url = '/employers'
     if (sectorId) url += `?sectorId=${sectorId}`
     return this.api.get(url)
-  }
-
-  // =============================
-  // CREATE
-  // =============================
-  async create(data: any) {
-    return this.api.post('/employers', data)
   }
 
   // =============================

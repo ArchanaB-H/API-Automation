@@ -6,12 +6,17 @@ import {
   recordFail,
   printModuleSummary
 } from '../../utils/module-tracker'
+import { CleanupHelper } from '../../utils/cleanup-helper'
 
 const MODULE = 'Comm Term Time'
+const cleanup = new CleanupHelper()
 
-test.describe('Community Term Time API', () => {
+test.describe.serial('Community Term Time API', () => {
+
   let service: CommTermTimeService
   let termTimeId: string
+  let ttName: string
+  let deleted = false
 
   test.beforeAll(async ({ api }) => {
     service = new CommTermTimeService(api)
@@ -21,8 +26,11 @@ test.describe('Community Term Time API', () => {
   // CREATE
   // =============================
   test('create term time', async () => {
+
+    ttName = `Holiday_API_${Date.now()}`
+
     const res = await service.create({
-      ttName: `Holiday_API`,
+      ttName: ttName,
       ttDesc: 'Created by Playwright',
       logoExtension: '.jpg',
       termTimeThresholds: [
@@ -48,6 +56,12 @@ test.describe('Community Term Time API', () => {
     const body = await res.json()
     termTimeId = body.result
 
+    // fallback cleanup
+    cleanup.add(async () => {
+      if (!termTimeId || deleted) return
+      await service.delete(termTimeId)
+    })
+
     recordPass(MODULE)
   })
 
@@ -55,8 +69,11 @@ test.describe('Community Term Time API', () => {
   // GET ALL
   // =============================
   test('get term time list', async () => {
+
     const res = await service.getAll()
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
@@ -64,8 +81,11 @@ test.describe('Community Term Time API', () => {
   // GET BY ID
   // =============================
   test('get term time by id', async () => {
+
     const res = await service.getById(termTimeId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
@@ -73,8 +93,11 @@ test.describe('Community Term Time API', () => {
   // GET DETAILS
   // =============================
   test('get term time details', async () => {
+
     const res = await service.getDetails(termTimeId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
@@ -82,32 +105,41 @@ test.describe('Community Term Time API', () => {
   // UPDATE
   // =============================
   test('update term time', async () => {
+
+    const updatedName = `${ttName}_UPDATED`
+
     const res = await service.update(termTimeId, {
       ttId: termTimeId,
-      ttName: `UPDATED_API`,
+      ttName: updatedName,
       ttDesc: 'Updated by Playwright',
       logoExtension: '.jpg'
     })
 
     expect(res.status()).toBe(200)
+
+    ttName = updatedName
+
     recordPass(MODULE)
   })
 
   // =============================
-  // ARCHIVE
+  // ARCHIVE / UNARCHIVE
   // =============================
   test('archive term time', async () => {
+
     const res = await service.archive(termTimeId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
-  // =============================
-  // UNARCHIVE
-  // =============================
   test('unarchive term time', async () => {
+
     const res = await service.unarchive(termTimeId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
@@ -115,54 +147,69 @@ test.describe('Community Term Time API', () => {
   // CARDS
   // =============================
   test('get term time cards', async () => {
+
     const res = await service.getCards()
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
   // =============================
-  // LOGO UPLOAD
+  // LOGO
   // =============================
   test('upload term time logo', async () => {
+
     const logoPath = path.resolve('test-data/logo.jpg')
+
     const res = await service.uploadLogo(termTimeId, logoPath)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
-  // =============================
-  // GET LOGO
-  // =============================
   test('get term time logo', async () => {
+
     const res = await service.getLogo(termTimeId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
   // =============================
-  // TEMPLATE
+  // TEMPLATE / EXPORT
   // =============================
   test('get term time template', async () => {
+
     const res = await service.getTemplate()
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
-  // =============================
-  // EXPORT
-  // =============================
   test('export term time', async () => {
+
     const res = await service.export(termTimeId)
+
     expect(res.status()).toBe(200)
+
     recordPass(MODULE)
   })
 
   // =============================
-  // DELETE
+  // DELETE (Primary)
   // =============================
   test('delete term time', async () => {
+
     const res = await service.delete(termTimeId)
+
     expect(res.status()).toBe(200)
+
+    deleted = true
+
     recordPass(MODULE)
   })
 
@@ -170,13 +217,23 @@ test.describe('Community Term Time API', () => {
   // FAILURE TRACKING
   // =============================
   test.afterEach(async ({}, testInfo) => {
+
     if (testInfo.status !== testInfo.expectedStatus) {
       recordFail(MODULE)
       console.log(`❌ ${testInfo.title} — failed`)
     }
+
   })
 
+  // =============================
+  // CLEANUP (Fallback)
+  // =============================
   test.afterAll(async () => {
+
     printModuleSummary(MODULE)
+
+    await cleanup.runAll(MODULE)
+
   })
+
 })

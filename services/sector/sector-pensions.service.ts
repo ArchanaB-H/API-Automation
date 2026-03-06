@@ -7,16 +7,18 @@ export class PensionService {
   //  RATE TABLES
   // =====================================================
 
+
+
+  async createRateTable(body: any) {
+    return this.api.post('/pension/rate-tables', body)
+  }
+
   async getRateTables() {
     return this.api.get('/pension/rate-tables')
   }
 
   async getRateTableById(rtId: string) {
     return this.api.get(`/pension/rate-tables/${rtId}`)
-  }
-
-  async createRateTable(body: any) {
-    return this.api.post('/pension/rate-tables', body)
   }
 
   async updateRateTable(rtId: string, body: any) {
@@ -33,14 +35,14 @@ export class PensionService {
     )
   }
 
-  async deleteRateTable(rtId: string) {
-    return this.api.delete(`/pension/rate-tables/${rtId}`)
-  }
-
   async getRateBands(rtId: string, date: string) {
     return this.api.get(
       `/pension/rate-tables/${rtId}/bands?date=${date}`
     )
+  }
+
+    async getRateTableLookup() {
+    return this.api.get('/pension/rate-tables/lookup')
   }
 
   async deleteRateTableDate(rtId: string, date: string) {
@@ -49,13 +51,17 @@ export class PensionService {
     )
   }
 
-  async getRateTableLookup() {
-    return this.api.get('/pension/rate-tables/lookup')
+  async deleteRateTable(rtId: string) {
+    return this.api.delete(`/pension/rate-tables/${rtId}`)
   }
 
   // =====================================================
   //  PENSION FUNDS
   // =====================================================
+
+  async createFund(body: any) {
+    return this.api.post('/pension', body)
+  }
 
   async getFunds() {
     return this.api.get('/pension')
@@ -63,10 +69,6 @@ export class PensionService {
 
   async getFundById(id: string) {
     return this.api.get(`/pension/${id}`)
-  }
-
-  async createFund(body: any) {
-    return this.api.post('/pension', body)
   }
 
   async updateFund(id: string, body: any) {
@@ -85,6 +87,13 @@ export class PensionService {
   //  ADDITIONAL CONTRIBUTIONS
   // =====================================================
 
+
+  async createAdditionalContribution(body: any) {
+    return this.api.post(
+      '/pension/additional-contributions',
+      body
+    )
+  }
   async getAdditionalContributions() {
     return this.api.get('/pension/additional-contributions')
   }
@@ -92,13 +101,6 @@ export class PensionService {
   async getAdditionalContributionById(id: string) {
     return this.api.get(
       `/pension/additional-contributions/${id}`
-    )
-  }
-
-  async createAdditionalContribution(body: any) {
-    return this.api.post(
-      '/pension/additional-contributions',
-      body
     )
   }
 

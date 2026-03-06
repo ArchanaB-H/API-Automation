@@ -1,40 +1,32 @@
 import { test, expect } from '../../fixtures/api-fixture'
 import { EmployersService } from '../../services/Employers/employers.service'
 import { recordPass, recordFail, printModuleSummary } from '../../utils/module-tracker'
+import { CleanupHelper } from '../../utils/cleanup-helper'
 import path from 'path'
 
 const MODULE = 'Employers'
+const cleanup = new CleanupHelper()
 
 test.describe.serial('Employers API', () => {
 
   let service: EmployersService
   let employerId: string
+  let employerName: string
+  let deleted = false
 
   test.beforeAll(async ({ api }) => {
     service = new EmployersService(api)
   })
 
   // =============================
-  // GET ALL
-  // =============================
-  test('get employers', async () => {
-
-    const res = await service.getAll('EDU')
-
-    expect(res.status()).toBe(200)
-
-    recordPass(MODULE)
-    console.log('✅ get employers — passed')
-  })
-
-
-  // =============================
   // CREATE
   // =============================
   test('create employer', async () => {
 
+    employerName = `Archana_API_${Date.now()}`
+
     const res = await service.create({
-      name: `Archana_API`,
+      name: employerName,
       addr1: 'API',
       addr2: 'string',
       addr3: 'string',
@@ -60,10 +52,28 @@ test.describe.serial('Employers API', () => {
     const body = await res.json()
     employerId = body.result
 
+    // fallback cleanup
+    cleanup.add(async () => {
+      if (!employerId || deleted) return
+      await service.delete(employerId)
+    })
+
     recordPass(MODULE)
-    console.log('✅ create employer — passed')
+
   })
 
+  // =============================
+  // GET ALL
+  // =============================
+  test('get employers', async () => {
+
+    const res = await service.getAll('EDU')
+
+    expect(res.status()).toBe(200)
+
+    recordPass(MODULE)
+
+  })
 
   // =============================
   // GET BY ID
@@ -75,9 +85,8 @@ test.describe.serial('Employers API', () => {
     expect(res.status()).toBe(200)
 
     recordPass(MODULE)
-    console.log('✅ get employer by id — passed')
-  })
 
+  })
 
   // =============================
   // UPLOAD LOGO
@@ -91,10 +100,8 @@ test.describe.serial('Employers API', () => {
     expect(res.status()).toBe(200)
 
     recordPass(MODULE)
-    console.log('✅ upload logo — passed')
-  })
-  
 
+  })
 
   // =============================
   // GET LOGO
@@ -106,18 +113,19 @@ test.describe.serial('Employers API', () => {
     expect(res.status()).toBe(200)
 
     recordPass(MODULE)
-    console.log('✅ get logo — passed')
-  })
 
+  })
 
   // =============================
   // UPDATE
   // =============================
   test('update employer', async () => {
 
+    const updatedName = `${employerName}_UPDATED`
+
     const res = await service.update({
       erId: employerId,
-      name: 'Archana_API_updated',
+      name: updatedName,
       addr1: 'Address1',
       addr2: 'string',
       addr3: 'string',
@@ -140,13 +148,14 @@ test.describe.serial('Employers API', () => {
 
     expect(res.status()).toBe(200)
 
+    employerName = updatedName
+
     recordPass(MODULE)
-    console.log('✅ update employer — passed')
+
   })
 
-
   // =============================
-  // DELETE
+  // DELETE 
   // =============================
   test('delete employer', async () => {
 
@@ -154,10 +163,11 @@ test.describe.serial('Employers API', () => {
 
     expect(res.status()).toBe(200)
 
-    recordPass(MODULE)
-    console.log('✅ delete employer — passed')
-  })
+    deleted = true
 
+    recordPass(MODULE)
+
+  })
 
   // =============================
   // FAILURE TRACKING
@@ -165,14 +175,23 @@ test.describe.serial('Employers API', () => {
   test.afterEach(async ({}, testInfo) => {
 
     if (testInfo.status !== testInfo.expectedStatus) {
+
       recordFail(MODULE)
       console.log(`❌ ${testInfo.title} — failed`)
+
     }
 
   })
 
+  // =============================
+  // CLEANUP (Fallback)
+  // =============================
   test.afterAll(async () => {
+
     printModuleSummary(MODULE)
+
+    await cleanup.runAll(MODULE)
+
   })
 
 })

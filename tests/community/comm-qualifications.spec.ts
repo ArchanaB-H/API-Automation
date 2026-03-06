@@ -1,17 +1,16 @@
 import { test, expect } from '../../fixtures/api-fixture'
 import { CommQualificationService } from '../../services/community/comm-qualifications.service'
-import {recordPass,recordFail,printModuleSummary} from '../../utils/module-tracker'
+import { recordPass, recordFail, printModuleSummary } from '../../utils/module-tracker'
+import { CleanupHelper } from '../../utils/cleanup-helper'
 
 const MODULE = 'Comm Qualifications'
+const cleanup = new CleanupHelper()
 
 test.describe.serial('Comm Qualification API', () => {
+
   let createdId: string
   let qualName: string
-
-  function markPassed(name: string) {
-    recordPass(MODULE)
-    console.log(`✅ ${name} — passed`)
-  }
+  let deleted = false
 
   test.afterEach(async ({}, testInfo) => {
     if (testInfo.status !== testInfo.expectedStatus) {
@@ -21,12 +20,13 @@ test.describe.serial('Comm Qualification API', () => {
   })
 
   // =====================================
-  //  CREATE
+  // CREATE
   // =====================================
   test('create qualification', async ({ api }) => {
+
     const service = new CommQualificationService(api)
 
-    qualName = `API_QUAL`
+    qualName = `API_QUAL_${Date.now()}`
 
     const res = await service.createQualification([
       {
@@ -41,79 +41,105 @@ test.describe.serial('Comm Qualification API', () => {
     const body = await res.json()
     createdId = body.result[0]
 
-    markPassed('qualification created')
+    // fallback cleanup
+    cleanup.add(async () => {
+      if (!createdId || deleted) return
+      await service.deleteQualification(createdId)
+    })
+
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  GET ALL
+  // GET ALL
   // =====================================
   test('get qualifications', async ({ api }) => {
+
     const service = new CommQualificationService(api)
 
     const res = await service.getAllQualifications()
+
     expect(res.status()).toBe(200)
 
-    markPassed('get qualifications')
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  GET BY ID
+  // GET BY ID
   // =====================================
   test('get qualification by id', async ({ api }) => {
+
     const service = new CommQualificationService(api)
 
     const res = await service.getQualificationById(createdId)
+
     expect(res.status()).toBe(200)
 
-    markPassed('get qualification by id')
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  PUT
+  // UPDATE
   // =====================================
   test('update qualification', async ({ api }) => {
+
     const service = new CommQualificationService(api)
+
+    const updatedName = `${qualName}_UPDATED`
 
     const res = await service.updateQualification({
       quId: createdId,
-      quName: `${qualName}_Updated`,
+      quName: updatedName,
       wfCode: 'NQF5',
       errorMessage: 'string'
     })
 
     expect(res.status()).toBe(200)
 
-    markPassed('put update qualification')
+    qualName = updatedName
+
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  TEMPLATE
+  // TEMPLATE
   // =====================================
   test('get qualification template', async ({ api }) => {
+
     const service = new CommQualificationService(api)
 
     const res = await service.getTemplate()
+
     expect(res.status()).toBe(200)
 
-    markPassed('template fetch qualification')
+    recordPass(MODULE)
   })
 
   // =====================================
-  //  DELETE
+  // DELETE (Primary)
   // =====================================
   test('delete qualification', async ({ api }) => {
+
     const service = new CommQualificationService(api)
 
     const res = await service.deleteQualification(createdId)
+
     expect(res.status()).toBe(200)
 
-    markPassed('delete qualification')
+    deleted = true
+
+    recordPass(MODULE)
   })
 
   // =====================================
-  // MODULE SUMMARY
+  // MODULE SUMMARY + CLEANUP
   // =====================================
   test.afterAll(async () => {
+
     printModuleSummary(MODULE)
+
+    await cleanup.runAll(MODULE)
+
   })
+
 })

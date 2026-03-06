@@ -1,5 +1,3 @@
-// utils/cleanup-helper.ts
-
 export class CleanupHelper {
   private items: Array<() => Promise<any>> = []
 
@@ -13,8 +11,9 @@ export class CleanupHelper {
     for (const task of this.items.reverse()) {
       try {
         await task()
-      } catch (err) {
-        console.log(' Cleanup task failed:', err)
+        console.log(' Cleanup executed successfully')
+      } catch (err: any) {
+        console.log(' Cleanup task failed:', err?.message || err)
       }
     }
 

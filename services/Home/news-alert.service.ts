@@ -3,12 +3,12 @@ import { ApiClient } from '../../utils/api-client'
 export class NewsAlertService {
   constructor(private api: ApiClient) {}
 
-  async getAll() {
-    return this.api.get('/news-alert')
-  }
-
   async create(data: any) {
     return this.api.post('/news-alert', data)
+  }
+
+    async getAll() {
+    return this.api.get('/news-alert')
   }
 
   async getById(newsNo: number) {
