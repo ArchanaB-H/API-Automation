@@ -27,7 +27,6 @@ test.describe.serial('Home Dashboard API', () => {
     expect(body.isSuccess).toBe(true)
 
     recordPass(MODULE)
-    console.log('✅ get dashboard details — passed')
   })
 
   // =============================
@@ -44,7 +43,6 @@ test.describe.serial('Home Dashboard API', () => {
     expect(body.isSuccess).toBe(true)
 
     recordPass(MODULE)
-    console.log('✅ get dashboard logos — passed')
   })
 
   // =============================

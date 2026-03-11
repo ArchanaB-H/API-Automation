@@ -27,7 +27,6 @@ test.describe.serial('Release Notes API', () => {
     expect(Array.isArray(body.result)).toBeTruthy()
 
     recordPass(MODULE)
-    console.log('✅ get release notes — passed')
   })
 
   // =============================

@@ -25,7 +25,6 @@ test.describe.serial('Users API', () => {
     expect(Array.isArray(body.result)).toBeTruthy()
 
     recordPass(MODULE)
-    console.log('✅ get all users — passed')
   })
 
   // =============================

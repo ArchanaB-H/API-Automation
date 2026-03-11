@@ -72,7 +72,7 @@ export function printModuleSummary(moduleName: string) {
   console.log('==============================\n')
 }
 
-// ✅ global summary
+// global summary
 export function printGlobalSummary() {
   const statsMap = readStats()
 

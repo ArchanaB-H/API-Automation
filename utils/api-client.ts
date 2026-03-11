@@ -48,15 +48,22 @@ export class ApiClient {
     data: body
   })
 }
-  //
-  
 
   async delete(path: string) {
   return this.request.delete(this.url(path), {
     headers: this.headers()
   })
 }
-    // =============================
+
+  async deleteWithBody(path: string, body: any) {
+    return this.request.fetch(this.url(path), {
+      method: 'DELETE',
+      headers: this.headers(),
+      data: body
+    })
+  }
+   
+  // =============================
   //  MULTIPART (for logo upload)
   // =============================
 

@@ -27,7 +27,6 @@ test.describe.serial('Data API', () => {
     expect(Array.isArray(body.result)).toBeTruthy()
 
     recordPass(MODULE)
-    console.log('✅ get regions — passed')
   })
 
   // =============================
